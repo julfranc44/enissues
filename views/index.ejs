@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Ticket</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
+        <h1 class="text-2xl font-bold text-center mb-6">Formulaire de Ticket</h1>
+        <form action="/submit" method="POST" class="space-y-4">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Nom :</label>
+                <input type="text" id="name" name="name" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email :</label>
+                <input type="email" id="email" name="email" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+                <label for="message" class="block text-sm font-medium text-gray-700">Message :</label>
+                <textarea id="message" name="message" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+            </div>
+            <button type="submit"
+                class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Créer un Ticket
+            </button>
+        </form>
+
+        <!-- Liste des tickets -->
+        <div class="mt-8">
+            <h2 class="text-xl font-bold mb-4">Tickets</h2>
+            <% tickets.forEach(ticket=> { %>
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm mb-4">
+                    <p class="text-gray-700"><strong>Nom :</strong>
+                        <%= ticket.name %>
+                    </p>
+                    <p class="text-gray-700"><strong>Email :</strong>
+                        <%= ticket.email %>
+                    </p>
+                    <p class="text-gray-700"><strong>Message :</strong>
+                        <%= ticket.message %>
+                    </p>
+                    <div class="flex space-x-2 mt-2">
+                        <a href="/edit/<%= ticket.id %>"
+                            class="text-sm bg-yellow-500 text-white py-1 px-3 rounded-md hover:bg-yellow-600">Modifier</a>
+                        <form action="/delete/<%= ticket.id %>" method="POST" class="inline">
+                            <button type="submit"
+                                class="text-sm bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600">Supprimer</button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+</body>
+
+</html>
